@@ -25,9 +25,9 @@ class BooksController extends Controller
     }
 
 
-    public function actionUpdate($id = false)
+    public function actionUpdate($id = null)
     {
-        $model = Books::createOrUpdate($id);
+        $model = Books::findModel($id);
 
         $isNew = $model->isNewRecord;
         $oldImage = $model->image;
@@ -55,12 +55,12 @@ class BooksController extends Controller
 
     public function actionCreate()
     {
-        return $this->actionUpdate(false);
+        return $this->actionUpdate(null);
     }
 
     public function actionView($id)
     {
-        $model = Books::findOne($id);
+        $model = Books::findById($id);
         return $this->render('view', ['model' => $model]);
     }
 

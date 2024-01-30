@@ -23,9 +23,9 @@ class AuthorsController extends Controller
     }
 
 
-    public function actionUpdate($id = false)
+    public function actionUpdate($id = null)
     {
-        $model = Authors::createOrUpdate($id);
+        $model = Authors::findModel($id);
 
         $isNew = $model->isNewRecord;
         $post = Yii::$app->request->post();
@@ -43,18 +43,16 @@ class AuthorsController extends Controller
 
     public function actionCreate()
     {
-        return $this->actionUpdate(false);
+        return $this->actionUpdate(null);
     }
 
     public function actionView($id)
     {
-        $model = Authors::findOne($id);
+        $model = Authors::findById($id);
 
         $searchModel = new BooksSearch();
         $searchModel->author_id = $model->id;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-        //return $this->render('index', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel]);
-
 
         return $this->render('view', [
             'model' => $model,

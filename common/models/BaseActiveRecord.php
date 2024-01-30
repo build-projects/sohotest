@@ -3,24 +3,38 @@
 namespace common\models;
 
 use yii\db\ActiveRecord;
+use yii\web\NotFoundHttpException;
 
+/**
+ * Class BaseActiveRecord
+ * @package common\models
+ *
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class BaseActiveRecord extends ActiveRecord
 {
-
     /**
      * @param null $id
-     * @return array|BaseActiveRecord|ActiveRecord
+     * @return BaseActiveRecord|static|null
+     * @throws NotFoundHttpException
      */
-    public static function createOrUpdate($id = null)
+    public static function findModel($id = null)
     {
-        $model = static::findOne($id);
 
-        if ($model) {
+        if (($model = static::findOne($id)) !== null) {
             return $model;
+        } else {
+            if (!$id)
+                return new static();
+
         }
-        return new static;
+        throw new NotFoundHttpException();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function beforeSave($insert)
     {
         if ($insert) {
@@ -29,5 +43,19 @@ class BaseActiveRecord extends ActiveRecord
             $this->updated_at = date('Y-m-d H:i:s');
         }
         return parent::beforeSave($insert);
+    }
+
+    /**
+     * @param $condition
+     * @return BaseActiveRecord
+     * @throws NotFoundHttpException
+     */
+    public static function findById($condition)
+    {
+        $model = parent::findOne($condition);
+        if (!$model) {
+            throw new NotFoundHttpException();
+        }
+        return $model;
     }
 }

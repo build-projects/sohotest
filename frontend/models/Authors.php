@@ -2,20 +2,18 @@
 
 namespace frontend\models;
 
-
-use Yii;
 use yii\db\ActiveQuery;
 use common\models\BaseActiveRecord;
 
 
 /**
- * This is the model class for table "books".
+ * This is the model class for table "authors".
  *
  * @property integer $id
  * @property string $name
  * @property string $biography
- * @property integer $created_at
- * @property integer $updated_at
+ * @property string $created_at
+ * @property string $updated_at
  */
 class Authors extends BaseActiveRecord
 {

@@ -26,13 +26,13 @@ use yii\web\UploadedFile;
  */
 class Books extends BaseActiveRecord
 {
+
     public $cover;
 
     public static function find()
     {
         return new ActiveQuery(get_called_class());
     }
-
 
     /**
      * @inheritdoc
