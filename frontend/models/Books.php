@@ -14,6 +14,7 @@ use yii\web\UploadedFile;
  * This is the model class for table "books".
  *
  * @property integer $id
+ * @property integer $author_id
  * @property string $title
  * @property string $text
  * @property string $created_at

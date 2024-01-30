@@ -2,22 +2,24 @@
 
 namespace frontend\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Books;
 
 /**
- * BrandSearch represents the model behind the search form about `panix\shop\models\Brand`.
+ * Class BooksSearch
+ * @package frontend\models\search
  */
-class BooksSearch extends Books {
+class BooksSearch extends Books
+{
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
-            [['id','price','author_id'], 'integer'],
+            [['id', 'price', 'author_id'], 'integer'],
             [['title'], 'safe'],
         ];
     }
@@ -25,7 +27,8 @@ class BooksSearch extends Books {
     /**
      * @inheritdoc
      */
-    public function scenarios() {
+    public function scenarios()
+    {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -37,7 +40,8 @@ class BooksSearch extends Books {
      *
      * @return ActiveDataProvider
      */
-    public function search($params) {
+    public function search($params)
+    {
         $query = Books::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,7 +61,7 @@ class BooksSearch extends Books {
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['like', 'title', $this->title]);
         $query->andFilterWhere(['like', 'price', $this->price]);
-        $query->andFilterWhere(['author_id'=>$this->author_id]);
+        $query->andFilterWhere(['author_id' => $this->author_id]);
 
         return $dataProvider;
     }
