@@ -44,7 +44,10 @@ return [
             'rules' => [
                 '' => 'site/index',
 
-                '<controller:[0-9a-zA-Z_\-]+>/index/page/<page:\d+>/per-page/<per-page:\d+>' => '<controller>/index',
+                //for per-page
+                //'<controller:[0-9a-zA-Z_\-]+>/index/page/<page:\d+>/per-page/<per-page:\d+>' => '<controller>/index',
+
+                '<controller:[0-9a-zA-Z_\-]+>/index/page/<page:\d+>' => '<controller>/index',
                 '<controller:[0-9a-zA-Z_\-]+>' => '<controller>/index',
 
                 '<controller:[0-9a-zA-Z_\-]+>/<action:[0-9a-zA-Z_\-]+>/<id:\d+>' => '<controller>/<action>',

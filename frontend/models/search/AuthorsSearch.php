@@ -48,6 +48,7 @@ class AuthorsSearch extends Authors
             'query' => $query,
             'pagination' => [
                 'pageSize' => 10,
+                'defaultPageSize' => 10
             ],
         ]);
 

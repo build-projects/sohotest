@@ -43,6 +43,7 @@ class BooksSearch extends Books {
             'query' => $query,
             'pagination' => [
                 'pageSize' => 10,
+                'defaultPageSize' => 10
             ],
         ]);
 
