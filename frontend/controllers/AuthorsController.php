@@ -52,20 +52,25 @@ class AuthorsController extends Controller
 
         $searchModel = new BooksSearch();
         $searchModel->author_id = $model->id;
-       // $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
         //return $this->render('index', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel]);
 
 
-
-        return $this->render('view', ['model' => $model]);
+        return $this->render('view', [
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel
+        ]);
     }
 
     public function actionDelete($id)
     {
         $model = Authors::findOne($id);
         if ($model) {
+            //Здесь можно еще сделать удаление всех книг автора.
             $model->delete();
             Yii::$app->session->setFlash('success', 'Deleted!');
+
         }
         return $this->redirect(['/authors/index']);
     }

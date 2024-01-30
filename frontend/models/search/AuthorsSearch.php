@@ -11,12 +11,14 @@ use frontend\models\Authors;
  * Class AuthorsSearch
  * @package frontend\models\search
  */
-class AuthorsSearch extends Authors {
+class AuthorsSearch extends Authors
+{
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['id'], 'integer'],
             [['name'], 'safe'],
@@ -26,7 +28,8 @@ class AuthorsSearch extends Authors {
     /**
      * @inheritdoc
      */
-    public function scenarios() {
+    public function scenarios()
+    {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,11 +41,11 @@ class AuthorsSearch extends Authors {
      *
      * @return ActiveDataProvider
      */
-    public function search($params) {
+    public function search($params)
+    {
         $query = Authors::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-           // 'sort' => self::getSort()
         ]);
 
         $this->load($params);

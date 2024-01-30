@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\helpers\Helper;
 use Yii;
+use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 use frontend\models\Books;
@@ -29,15 +30,22 @@ class BooksController extends Controller
         $model = Books::createOrUpdate($id);
 
         $isNew = $model->isNewRecord;
+        $oldImage = $model->image;
         $post = Yii::$app->request->post();
 
         if ($model->load($post)) {
-            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            $model->cover = UploadedFile::getInstance($model, 'cover');
             $fileName = Helper::gen(10);
-            $model->image = $fileName.'.'.$model->imageFile->extension;
+            if ($model->cover)
+                $model->image = $fileName . '.' . $model->cover->extension;
             if ($model->validate()) {
                 $model->save();
-                $model->imageFile->saveAs(Yii::getAlias("@uploads/{$model->image}"));
+                if ($model->cover) {
+                    //remove old image
+                    FileHelper::unlink(Yii::getAlias("@uploads/{$oldImage}"));
+
+                    $model->cover->saveAs(Yii::getAlias("@uploads/{$model->image}"));
+                }
                 Yii::$app->session->setFlash('success', ($isNew) ? 'Create success' : 'Update success');
                 return $this->redirect(['/books/index']);
             }
@@ -49,7 +57,6 @@ class BooksController extends Controller
     {
         return $this->actionUpdate(false);
     }
-
 
     public function actionView($id)
     {

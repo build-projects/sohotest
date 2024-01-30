@@ -16,12 +16,7 @@ $form = ActiveForm::begin([
     'id' => 'books-form',
     'options' => ['class' => 'form-horizontal', 'enctype' => 'multipart/form-data'],
 ]) ?>
-<?= $form->field($model, 'imageFile')->fileInput()->hint('jpg, png') ?>
 
-<?php if(!$model->isNewRecord && $model->image){ ?>
-    <h3>Current image</h3>
-<?php echo Html::img('/uploads/'.$model->image); ?>
-<?php } ?>
 
 <?= $form->field($model, 'title') ?>
 <?= $form->field($model, 'price') ?>
@@ -32,6 +27,12 @@ echo $form->field($model, 'author_id')->dropDownList(ArrayHelper::map(Authors::f
     'prompt' => html_entity_decode('&mdash; Выберите автора &mdash;')
 ]);
 ?>
+<?= $form->field($model, 'cover')->fileInput(['class'=>'form-control'])->hint('jpg, png') ?>
+
+<?php if(!$model->isNewRecord && $model->image){ ?>
+    <h3>Current image</h3>
+    <?php echo Html::img('/uploads/'.$model->image); ?>
+<?php } ?>
 <div class="form-group mt-3">
     <div class="col-lg-offset-1 col-lg-11">
         <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>

@@ -17,7 +17,7 @@ class BooksSearch extends Books {
      */
     public function rules() {
         return [
-            [['id','price'], 'integer'],
+            [['id','price','author_id'], 'integer'],
             [['title'], 'safe'],
         ];
     }
@@ -41,7 +41,6 @@ class BooksSearch extends Books {
         $query = Books::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-           // 'sort' => self::getSort()
         ]);
 
         $this->load($params);
@@ -54,6 +53,7 @@ class BooksSearch extends Books {
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['like', 'title', $this->title]);
         $query->andFilterWhere(['like', 'price', $this->price]);
+        $query->andFilterWhere(['author_id'=>$this->author_id]);
 
         return $dataProvider;
     }

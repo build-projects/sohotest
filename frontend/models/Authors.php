@@ -16,7 +16,6 @@ use common\models\BaseActiveRecord;
  * @property string $biography
  * @property integer $created_at
  * @property integer $updated_at
- * @property Books $books
  */
 class Authors extends BaseActiveRecord
 {
@@ -28,7 +27,6 @@ class Authors extends BaseActiveRecord
     {
         return new ActiveQuery(get_called_class());
     }
-
 
     /**
      * @inheritdoc
@@ -43,29 +41,15 @@ class Authors extends BaseActiveRecord
      */
     public function rules()
     {
-
-        $rules = [];
-
-        $rules[] = [['biography', 'name'], 'required'];
-        $rules[] = [['biography'], 'string', 'max' => 50];
-        $rules[] = [['biography', 'name'], 'string'];
-        $rules[] = [['biography'], 'trim'];
-        //$rules[] = ['phone', 'panix\ext\telinput\PhoneInputValidator'];
-        $rules[] = [['updated_at', 'created_at'], 'safe'];
-        $rules[] = [['name', 'biography'], 'default'];
-
-        return $rules;
+        return [
+            [['biography', 'name'], 'required'],
+            [['biography'], 'string', 'max' => 50],
+            [['biography', 'name'], 'string'],
+            [['biography'], 'trim'],
+            [['updated_at', 'created_at'], 'safe'],
+            [['name', 'biography'], 'default']
+        ];
     }
-
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBooks()
-    {
-        return $this->hasMany(Books::class, ['id' => 'user_id']);
-    }
-
 
 
 }

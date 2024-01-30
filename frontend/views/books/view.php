@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /**
- * @var \frontend\models\Books $dataProvider
+ * @var \frontend\models\Books $model
  */
 ?>
 
@@ -17,9 +17,9 @@ echo DetailView::widget([
         'text:html',
         [
             'label' => 'Image',
-            'format'=>'raw',
+            'format' => 'raw',
             'value' => function ($model) {
-                return Html::img("/uploads/{$model->image}");
+                return ($model->image) ? Html::img("/uploads/{$model->image}") : 'No image';
             }
         ],
         'created_at:datetime',
