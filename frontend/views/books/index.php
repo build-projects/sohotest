@@ -13,7 +13,7 @@ echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
-        'id',
+        //'id',
         'title',
         'price',
         [
@@ -27,5 +27,8 @@ echo GridView::widget([
         ['class' => 'yii\grid\ActionColumn',
             'template' => '{view} {update} {delete}',
         ]
+    ],
+    'pager' => [
+        'class' => 'yii\bootstrap5\LinkPager',
     ],
 ]);

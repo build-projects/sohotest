@@ -16,7 +16,7 @@ echo Html::a('Add author', ['/authors/create'], ['class' => 'btn btn-success mb-
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
-        'id',
+        //'id',
         'name',
         'biography',
         'created_at:datetime',
@@ -24,5 +24,8 @@ echo Html::a('Add author', ['/authors/create'], ['class' => 'btn btn-success mb-
         ['class' => 'yii\grid\ActionColumn',
             'template' => '{view} {update} {delete}',
         ]
+    ],
+    'pager' => [
+        'class' => 'yii\bootstrap5\LinkPager',
     ],
 ]) ?>
